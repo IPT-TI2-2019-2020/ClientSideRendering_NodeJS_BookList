@@ -3,7 +3,10 @@ const bookService = require ('../services/book-service.js');
 exports.getBooks = (req, res) => {
   bookService
     .getBooks ()
-    .then (result => res.json (result))
+    .then (result => {
+      console.log ('sending book list');
+      res.json (result);
+    })
     .catch (err => res.status (500).send (err.message));
 };
 exports.getBook = (req, res) => {
