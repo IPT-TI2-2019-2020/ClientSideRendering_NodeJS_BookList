@@ -1,0 +1,19 @@
+{
+  "name": "clientsiderendering_nodejs_booklist",
+  "version": "1.0.0",
+  "description": "Work done at 03/04/2020",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FsRiachos/ClientSideRendering_NodeJS_BookList.git"
+  },
+  "author": "Frederico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FsRiachos/ClientSideRendering_NodeJS_BookList/issues"
+  },
+  "homepage": "https://github.com/FsRiachos/ClientSideRendering_NodeJS_BookList#readme"
+}
