@@ -1,0 +1,19 @@
+{
+  "name": "clientsiderendering_nodejs_booklist",
+  "version": "1.0.0",
+  "description": "work done at classes",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IPT-TI2-2019-2020/ClientSideRendering_NodeJS_BookList.git"
+  },
+  "author": "diogo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IPT-TI2-2019-2020/ClientSideRendering_NodeJS_BookList/issues"
+  },
+  "homepage": "https://github.com/IPT-TI2-2019-2020/ClientSideRendering_NodeJS_BookList#readme"
+}
