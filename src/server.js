@@ -1,18 +1,26 @@
-const express = require ('express');
-const bodyParser = require ('body-parser');
-const cors = require ('cors');
+require ('./configs/mongo').connectDB()
+  .then (() => {
+    console.log ('Connected successfully to database server');
 
-const bookRoute = require ('./routes/book-route.js');
+    const express = require ('express');
+    const bodyParser = require ('body-parser');
+    const cors = require ('cors');
 
-const app = express ();
+    const bookRoute = require ('./routes/book-route.js');
 
-app.use (bodyParser.json ());
-app.use (cors ());
+    const app = express ();
 
-app.use ('/book', bookRoute);
-app.use ('/home', (req, res) => res.json ({msg: 'HELLO'}));
+    app.use (bodyParser.json ());
+    app.use (cors ());
 
-const port = process.env.PORT || 3000;
-app.listen (port, () => {
-  console.log (`\x1b[32m(PLAIN) Server listening on port ${port}\x1b[0m`);
-});
+    app.use ('/book', bookRoute);
+    app.use ('/home', (req, res) => res.json ({msg: 'HELLO'}));
+
+    const port = process.env.PORT || 3000;
+    app.listen (port, () => {
+      console.log (`\x1b[32m(PLAIN) Server listening on port ${port}\x1b[0m`);
+    });
+  })
+  .catch (err => {
+    console.error ('Unable to connect to databse server :', err.message);
+  });

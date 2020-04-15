@@ -1,4 +1,4 @@
-const bookService = require ('../services/book-service.js');
+const bookService = require ('../services/book-mongo.js');
 
 exports.getBooks = (req, res) => {
   bookService
