@@ -1,4 +1,4 @@
-const bookService = require ('../services/book-service.js');
+const bookService = require ('../services/book-sequelize.js');
 
 exports.getBooks = (req, res) => {
   bookService
