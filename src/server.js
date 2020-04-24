@@ -7,15 +7,13 @@ require("./configs/mongodb.js")
     const bodyParser = require("body-parser");
     const cors = require("cors");
 
-    const bookRoute = require("./routes/book-route.js");
-
     const app = express();
 
     app.use(bodyParser.json());
     app.use(cors());
 
-    app.use("/book", bookRoute);
-    app.use("/home", (req, res) => res.json({ msg: "HELLO" }));
+    app.use("/book", require("./routes/book-route.js"));
+    app.use("/user", require("./routes/user-route.js"));
 
     const port = process.env.PORT || 5000;
     app.listen(port, () => {
