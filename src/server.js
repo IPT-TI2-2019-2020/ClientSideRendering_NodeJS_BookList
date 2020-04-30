@@ -1,3 +1,4 @@
+require("dotenv").config();
 require("./configs/mongodb.js")
   .connectDB()
   .then(() => {

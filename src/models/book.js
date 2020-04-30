@@ -1,6 +1,6 @@
 module.exports = (connection, Sequelize) => {
   class Book extends Sequelize.Model {}
-  Book.init (
+  Book.init(
     {
       _id: {
         type: Sequelize.UUID,
@@ -17,10 +17,10 @@ module.exports = (connection, Sequelize) => {
         type: Sequelize.STRING,
       },
       publish_year: {
-        type: Sequelize.NUMBER (4),
+        type: Sequelize.NUMBER(4),
       },
     },
-    {sequelize: connection}
+    { sequelize: connection }
   );
   return Book;
 };
