@@ -43,12 +43,8 @@ exports.authenticate = (username, rawPassword) => {
 
 exports.getBooks = (userId, queryString) => {
   return new Promise((resolve, reject) => {
-    let where = {};
-    if (queryString.search) {
-      where.title = { [Op.substring]: queryString.search };
-    }
     db.User.findByPk(userId)
-      .then((user) => user.getBooks({ attributes: ["_id", "title", "author"], where }))
+      .then((user) => user.getBooks({ attributes: ["_id", "title", "author"] }))
       .then((books) => resolve(books))
       .catch((error) => reject(error));
   });

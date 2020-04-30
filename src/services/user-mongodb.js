@@ -44,17 +44,17 @@ exports.authenticate = (username, rawPassword) => {
   });
 };
 
-exports.getBooks = (userId, queryString) => {
+exports.getBooks = (userId) => {
   return new Promise((resolve, reject) => {
     db.collection("users")
       .findOne({ _id: ObjectId(userId) })
       .then((user) => {
         if (user.books) {
-          let filter = { _id: { $in: user.books } };
-          if (queryString.search) {
-            filter.title = { $regex: new RegExp(queryString.search, "i") };
-          }
-          return db.collection("books").find(filter).project({ title: 1, author: 1 }).toArray();
+          return db
+            .collection("books")
+            .find({ _id: { $in: user.books } })
+            .project({ title: 1, author: 1 })
+            .toArray();
         } else return [];
       })
       .then((books) => resolve(books))
