@@ -1,8 +1,13 @@
 const db = require("../configs/sequelize.js").getDB();
+const Op = require("sequelize").Op;
 
-exports.getBooks = () => {
+exports.getBooks = (queryString) => {
   return new Promise((resolve, reject) => {
-    db.Book.findAll({ attributes: ["_id", "title", "author"] })
+    let where = {};
+    if (queryString.search) {
+      where.title = { [Op.substring]: queryString.search };
+    }
+    db.Book.findAll({ attributes: ["_id", "title", "author"], where })
       .then((books) => resolve(books))
       .catch((err) => reject(err));
   });

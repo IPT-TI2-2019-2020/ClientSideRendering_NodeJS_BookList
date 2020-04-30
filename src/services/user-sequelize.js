@@ -1,6 +1,7 @@
 const db = require("../configs/sequelize").getDB();
 const cipher = require("../helpers/cipher");
 const roles = require("../helpers/roles");
+const Op = require("sequelize").Op;
 
 exports.register = (username, rawPassword, role) => {
   return new Promise((resolve, reject) => {
@@ -40,10 +41,14 @@ exports.authenticate = (username, rawPassword) => {
   });
 };
 
-exports.getBooks = (userId) => {
+exports.getBooks = (userId, queryString) => {
   return new Promise((resolve, reject) => {
+    let where = {};
+    if (queryString.search) {
+      where.title = { [Op.substring]: queryString.search };
+    }
     db.User.findByPk(userId)
-      .then((user) => user.getBooks({ attributes: ["_id", "title", "author"] }))
+      .then((user) => user.getBooks({ attributes: ["_id", "title", "author"], where }))
       .then((books) => resolve(books))
       .catch((error) => reject(error));
   });
