@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./configs/sequelize.js")
+require("./configs/mongodb.js")
   .connectDB()
   .then(() => {
     console.log(`\x1b[32m(PLAIN) Successfuly connected to database server\x1b[0m`);
