@@ -2,4 +2,5 @@ Developed code to TI2 classes
 
 boilerplate montado
 
-start book list and authentication
+start authentication
+finish book list and insert
