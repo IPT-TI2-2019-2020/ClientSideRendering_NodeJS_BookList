@@ -1,8 +1,10 @@
 require("dotenv").config();
-require("./configs/sequelize.js")
+require("./configs/mongodb.js")
   .connectDB()
   .then(() => {
     console.log(`\x1b[32m(PLAIN) Successfuly connected to database server\x1b[0m`);
+
+    const path = require("path");
 
     const express = require("express");
     const bodyParser = require("body-parser");
@@ -16,6 +18,8 @@ require("./configs/sequelize.js")
     app.use("/book", require("./routes/book-route.js"));
     app.use("/user", require("./routes/user-route.js"));
 
+    app.use("/", express.static(path.join(__dirname, "..", "react")));
+
     const port = process.env.PORT || 5000;
     app.listen(port, () => {
       console.log(`\x1b[32m(PLAIN) Server listening on port ${port}\x1b[0m`);
@@ -23,4 +27,5 @@ require("./configs/sequelize.js")
   })
   .catch((err) => {
     console.error(err);
+    process.exit();
   });
