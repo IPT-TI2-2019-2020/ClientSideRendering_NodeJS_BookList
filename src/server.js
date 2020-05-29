@@ -1,8 +1,11 @@
 require("dotenv").config();
-require("./configs/mongodb.js")
-  .connectDB()
+
+const store = require("./configs/minio.js");
+const db = require("./configs/mongodb.js");
+
+Promise.all([db.connectDB(), store.connectStorage()])
   .then(() => {
-    console.log(`\x1b[32m(PLAIN) Successfuly connected to database server\x1b[0m`);
+    console.log(`\x1b[32m(PLAIN) Successfuly connected to database and object storage servers\x1b[0m`);
 
     const path = require("path");
 

@@ -1,4 +1,5 @@
 const bookService = require("../services/book-mongodb.js");
+const formidable = require("formidable");
 
 exports.getBooks = (req, res) => {
   bookService
@@ -24,6 +25,20 @@ exports.updateBook = (req, res) => {
     .then((result) => res.json(result))
     .catch((err) => res.status(500).send(err.message));
 };
+
+exports.updateBookCover = (req, res) => {
+  formidable().parse(req, (err, fields, files) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else {
+      bookService
+        .updateBookCover(req.params.id, files.cover)
+        .then((result) => res.json(result))
+        .catch((err) => res.status(500).send(err.message));
+    }
+  });
+};
+
 exports.removeBook = (req, res) => {
   bookService
     .removeBook(req.params.id)

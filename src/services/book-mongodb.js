@@ -1,4 +1,5 @@
 const db = require("../configs/mongodb.js").getDB();
+const store = require("../configs/minio.js");
 const ObjectId = require("mongodb").ObjectID;
 
 exports.getBooks = (queryString) => {
@@ -36,6 +37,7 @@ exports.insertBook = (body) => {
       .catch((err) => reject(err));
   });
 };
+
 exports.updateBook = (id, body) => {
   return new Promise((resolve, reject) => {
     db.collection("books")
@@ -54,6 +56,30 @@ exports.updateBook = (id, body) => {
       .catch((err) => reject(err));
   });
 };
+exports.updateBookCover = (id, file) => {
+  return new Promise((resolve, reject) => {
+    let url = "";
+    db.collection("books")
+      .findOne({ _id: ObjectId(id) })
+      .then((book) => {
+        let promises = [store.uploadFile(file.path, file.type)];
+        if (book.cover) {
+          const aux = book.cover.split("?")[0].split("/");
+          promises.push(store.removeFile(aux[aux.length - 1]));
+        }
+        return Promise.all(promises);
+      })
+      .then(([presignedUrl, deleted]) => {
+        url = presignedUrl;
+        return db.collection("books").updateOne({ _id: ObjectId(id) }, { $set: { cover: presignedUrl } });
+      })
+      .then(() => {
+        resolve({ updated: 1, url });
+      })
+      .catch((err) => reject(err));
+  });
+};
+
 exports.removeBook = (id) => {
   return new Promise((resolve, reject) => {
     db.collection("books")
